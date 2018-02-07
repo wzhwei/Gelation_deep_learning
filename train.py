@@ -76,10 +76,10 @@ if __name__ == '__main__':
     # The 0 to n_cols-2 column in data is the training data with range of [0,1] and avarage of about 0.5. 
     # Subtract the average so that the training data has both positive and negative
     
-    for l1 in np.arange(20,101,20): # Parameter search for different number of layers and regularization strength
+    for l1 in np.arange(20,101,20): # Parameter search for different number of units in the hidden layer and regularization strength
         for kernel in np.arange(0.00,0.051,0.01):
-            model = generate_one_layer_fnn(l1, kernel, n_cols-2) # Generete fully connected neural nets
+            model = generate_one_layer_fnn(l1, kernel, n_cols-2) # Generate fully connected neural nets with one hidden layer
             filepath = 'l1_' + str(l1) + '_kernel_%.2f' % kernel + '.h5'
             checkpoint = ModelCheckpoint(filepath, monitor = 'val_loss', verbose=0, save_best_only=True, mode='max') # Save the model with the lowest validation loss
             history = model.fit(data_train, target, epochs=50, validation_split=0.3, callbacks=[checkpoint], verbose=0) # Split the data into train and validation tests
-            plot_train_history(history) # Save the loss and accuray as a function of epoch in a png
+            plot_train_history(history) # Save the loss and accuray as a function of epoch in a figure
