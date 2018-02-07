@@ -14,17 +14,6 @@ from keras.callbacks import ModelCheckpoint
 from keras import regularizers
 from sklearn.utils import shuffle
 
-data = pd.read_csv('test.dat', header=None, sep=' ')
-data = shuffle(data) # Shuffle the data before splitting out the validation data set
-n_cols = data.shape[1]
-
-gel_state = data.iloc[:, n_cols-2].values # The n_cols-2 column in data is the target
-target = to_categorical(gel_state)
-train = data.iloc[:, :n_cols-2] - 0.5 
-data_train = train.values
-# The 0 to n_cols-2 column in data is the training data with range of [0,1] and avarage of about 0.5. 
-# Subtract the average so that the training data has both positive and negative
-
 def generate_one_layer_fnn(l1, kernel, shape0):
     '''
     Input:
@@ -71,6 +60,17 @@ def plot_train_history(history):
     plt.savefig('l1_' + str(l1) + '_kernel_%.2f' % kernel + '.png')
 
 if __name__ == '__main__':
+    data = pd.read_csv('test.dat', header=None, sep=' ')
+    data = shuffle(data) # Shuffle the data before splitting out the validation data set
+    n_cols = data.shape[1]
+
+    gel_state = data.iloc[:, n_cols-2].values # The n_cols-2 column in data is the target
+    target = to_categorical(gel_state)
+    train = data.iloc[:, :n_cols-2] - 0.5 
+    data_train = train.values
+    # The 0 to n_cols-2 column in data is the training data with range of [0,1] and avarage of about 0.5. 
+    # Subtract the average so that the training data has both positive and negative
+    
     for l1 in np.arange(20,101,20): # Parameter search for different number of layers and regularization strength
         for kernel in np.arange(0.00,0.051,0.01):
             model = generate_one_layer_fnn(l1, kernel, n_cols-2) # Generete fully connected neural nets
