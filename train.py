@@ -1,9 +1,9 @@
 #!/software/anaconda2/bin/python
 
-'''
+"""
 This code will train input data using one-hidden-layer fully connected neural network 
 with varied number of units in the hidden layer and L2 regularization strength.
-'''
+"""
 
 import sys, tensorflow
 import numpy as np
@@ -20,7 +20,7 @@ from keras import regularizers
 from sklearn.utils import shuffle
 
 def generate_one_layer_fnn(l1, kernel, shape0):
-    '''
+    """
     Input:
     l1 is the number of units in the hidden layer
     kernel is the l2 regularization strength
@@ -28,7 +28,7 @@ def generate_one_layer_fnn(l1, kernel, shape0):
     
     Output:
     model is a fully connected neural network with "l1" units in hidden layer and l2 regularization strenght of "kernel"
-    '''
+    """
     model = Sequential()
     model.add(Dense(l1, kernel_regularizer=regularizers.l2(kernel), activity_regularizer=regularizers.l2(0.00), input_shape=(shape0,), activation='relu'))
     model.add(Dense(2, activation='softmax'))
@@ -37,7 +37,7 @@ def generate_one_layer_fnn(l1, kernel, shape0):
     return model
 
 def plot_train_history(history):
-    '''
+    """
     Input:
     history object from model.fit() 
     Its history.history attribute is a record of training loss values and metrics values at successive epochs, 
@@ -45,7 +45,7 @@ def plot_train_history(history):
     
     Output:
     No return. Will save a png file showing the loss and accuray as a function of epoch. 
-    '''
+    """
     plt.switch_backend('agg')
     fig, (ax1, ax2) = plt.subplots(2,1,sharex=True)
     ax1.plot(history.history['loss'])
