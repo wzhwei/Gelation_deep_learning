@@ -14,7 +14,7 @@ from keras.callbacks import ModelCheckpoint
 from keras import regularizers
 from sklearn.utils import shuffle
 
-data = pd.read_csv('test.dat', header=None, sep=' ')
+data = pd.read_csv('data.dat', header=None, sep=' ')
 data = shuffle(data) # Shuffle the data before splitting out the validation data set
 n_cols = data.shape[1]
 
