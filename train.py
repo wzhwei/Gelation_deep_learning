@@ -1,5 +1,10 @@
 #!/software/anaconda2/bin/python
 
+'''
+This code will train input data using one-hidden-layer fully connected neural network 
+with varied number of units in the hidden layer and L2 regularization strength.
+'''
+
 import sys, tensorflow
 import numpy as np
 import pandas as pd
